@@ -25,6 +25,8 @@ struct Ticket* createTicket(int id, char issue[], char status[]) {
 struct Ticket* insert(struct Ticket* root, int id, char issue[], char status[]) {
     if (root == NULL)
         return createTicket(id, issue, status);
+        
+
 
     if (id < root->id)
         root->left = insert(root->left, id, issue, status);
@@ -50,6 +52,7 @@ void display(struct Ticket* root) {
 struct Ticket* search(struct Ticket* root, int id) {
     if (root == NULL || root->id == id)
         return root;
+
 
     if (id < root->id)
         return search(root->left, id);
@@ -85,6 +88,7 @@ struct Ticket* findMin(struct Ticket* root) {
 struct Ticket* deleteTicket(struct Ticket* root, int id) {
     if (root == NULL)
         return root;
+        
 
     if (id < root->id)
         root->left = deleteTicket(root->left, id);
@@ -143,17 +147,20 @@ int main() {
 
                 root = insert(root, id, issue, status);
                 break;
+<img width="347" height="518" alt="Screenshot 2026-04-16 150117" src="https://github.com/user-attachments/assets/c5b81801-0791-4c4b-bb28-6916d6d1996c" />
 
             case 2:
                 printf("\n--- Ticket List ---\n");
                 display(root);
                 break;
+<img width="504" height="296" alt="Screenshot 2026-04-16 150144" src="https://github.com/user-attachments/assets/a0d56ce3-0ccb-4a2e-8c4d-8b6c39bda55b" />
 
             case 3:
                 printf("Enter Ticket ID to update: ");
                 scanf("%d", &id);
                 update(root, id);
                 break;
+<img width="343" height="278" alt="Screenshot 2026-04-16 150251" src="https://github.com/user-attachments/assets/65d70a64-d117-49f4-844a-334e2b18b6ba" />
 
             case 4:
                 printf("Enter Ticket ID to delete: ");
@@ -161,6 +168,7 @@ int main() {
                 root = deleteTicket(root, id);
                 printf("🗑 Ticket deleted!\n");
                 break;
+<img width="375" height="226" alt="Screenshot 2026-04-16 150308" src="https://github.com/user-attachments/assets/9710ce54-612f-4dd5-8e65-56645f1092fa" />
 
             case 5:
                 printf("Enter Ticket ID to search: ");
@@ -173,10 +181,12 @@ int main() {
                 else
                     printf("❌ Ticket not found!\n");
                 break;
+<img width="602" height="240" alt="Screenshot 2026-04-16 150326" src="https://github.com/user-attachments/assets/f8cc2511-5f3c-4823-a761-79fd1049058f" />
 
             case 6:
                 printf("Exiting...\n");
                 exit(0);
+<img width="365" height="209" alt="Screenshot 2026-04-16 150338" src="https://github.com/user-attachments/assets/76fa9a5b-c9e6-4fac-a09e-390fb7d52cdc" />
 
             default:
                 printf("Invalid choice!\n");
