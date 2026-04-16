@@ -1,195 +1,157 @@
-# customer-support-system
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+## Customer Support System
 
-// Structure for Ticket
-struct Ticket {
-    int id;
-    char issue[100];
-    char status[50];
-    struct Ticket *left, *right;
-};
+Ticket Resolution using Binary Search Tree (BST)
 
-// Create a new ticket
-struct Ticket* createTicket(int id, char issue[], char status[]) {
-    struct Ticket* newNode = (struct Ticket*)malloc(sizeof(struct Ticket));
-    newNode->id = id;
-    strcpy(newNode->issue, issue);
-    strcpy(newNode->status, status);
-    newNode->left = newNode->right = NULL;
-    return newNode;
-}
+---
 
-// Insert (CREATE)
-struct Ticket* insert(struct Ticket* root, int id, char issue[], char status[]) {
-    if (root == NULL)
-        return createTicket(id, issue, status);
-        
+📌 Project Overview
+
+The Customer Support System is a C-based application used to manage customer tickets efficiently.
+It uses a Binary Search Tree (BST) to organize tickets based on unique IDs for fast operations.
+
+---
+
+🎯 Key Features
+
+- ➕ Create Ticket
+- 📄 View All Tickets
+- 🔍 Search Ticket
+- ✏️ Update Ticket
+- 🗑️ Delete Ticket
+- 💾 Save & Load Data
+
+---
+
+🧠 Data Structure Used
+
+Binary Search Tree (BST)
+
+- Sorted storage using ticket ID
+- Faster searching and retrieval
+- Efficient insert and delete
+
+---
+
+⚙️ Technologies Used
+
+- C Programming Language
+- Libraries:
+  - stdio.h
+  - stdlib.h
+  - string.h
+
+---
+
+🖥️ System Workflow
+
+1. Enter ticket details
+2. Store in BST
+3. Perform operations:
+   - Display
+   - Search
+   - Update
+   - Delete
+4. Save data to file ("tickets.txt")
+5. Load data on restart
+
+---
+
+▶️ How to Run
+
+🔹 Compile
+
+gcc project.c -o project
+
+🔹 Execute
+
+./project
+
+---
+
+📂 Project Structure
+
+Customer-Support-System/
+│── project.c
+│── tickets.txt
+│── README.md
+│── images/
+
+---
+
+📊 Sample Output
+
+--- Customer Support System ---
+
+1. Create Ticket
+2. Display Tickets
+3. Update Ticket
+4. Delete Ticket
+5. Search Ticket
+6. Exit
+
+---
+
+📸 Screenshots
+
+🔹 Menu Interface
+
+"Menu" (images/menu.png)
+
+🔹 C
+
+*Create Ticket
+<img width="347" height="518" alt="Screenshot 2026-04-16 150117" src="https://github.com/user-attachments/assets/1c4e546f-9268-4789-8fbe-a9896d4048f7" />
 
 
-    if (id < root->id)
-        root->left = insert(root->left, id, issue, status);
-    else if (id > root->id)
-        root->right = insert(root->right, id, issue, status);
-    else
-        printf("Ticket ID already exists!\n");
-
-    return root;
-}
-
-// Display (READ)
-void display(struct Ticket* root) {
-    if (root != NULL) {
-        display(root->left);
-        printf("ID: %d | Issue: %s | Status: %s\n",
-               root->id, root->issue, root->status);
-        display(root->right);
-    }
-}
-
-// Search ticket
-struct Ticket* search(struct Ticket* root, int id) {
-    if (root == NULL || root->id == id)
-        return root;
+🔹 Display Tickets
+<img width="504" height="296" alt="Screenshot 2026-04-16 150144" src="https://github.com/user-attachments/assets/1553217a-c496-498a-a3ef-a346a760afcd" />
 
 
-    if (id < root->id)
-        return search(root->left, id);
-    else
-        return search(root->right, id);
-}
 
-// Update (UPDATE)
-void update(struct Ticket* root, int id) {
-    struct Ticket* t = search(root, id);
+🔹 Search Ticket
 
-    if (t != NULL) {
-        printf("Enter new issue: ");
-        scanf(" %[^\n]", t->issue);
+<img width="602" height="240" alt="Screenshot 2026-04-16 150326" src="https://github.com/user-attachments/assets/fc6af3c0-b118-46fe-b47f-2fba2b005cd6" />
 
-        printf("Enter new status: ");
-        scanf(" %[^\n]", t->status);
 
-        printf("✅ Ticket updated successfully!\n");
-    } else {
-        printf("❌ Ticket not found!\n");
-    }
-}
+🔹 Update Ticket
 
-// Find minimum (helper for delete)
-struct Ticket* findMin(struct Ticket* root) {
-    while (root && root->left != NULL)
-        root = root->left;
-    return root;
-}
 
-// Delete (DELETE)
-struct Ticket* deleteTicket(struct Ticket* root, int id) {
-    if (root == NULL)
-        return root;
-        
+<img width="343" height="278" alt="Screenshot 2026-04-16 150251" src="https://github.com/user-attachments/assets/f6ae37d7-a684-4fdc-9475-3960b1a07c75" />
 
-    if (id < root->id)
-        root->left = deleteTicket(root->left, id);
-    else if (id > root->id)
-        root->right = deleteTicket(root->right, id);
-    else {
-        // Node with one or no child
-        if (root->left == NULL) {
-            struct Ticket* temp = root->right;
-            free(root);
-            return temp;
-        } else if (root->right == NULL) {
-            struct Ticket* temp = root->left;
-            free(root);
-            return temp;
-        }
+🔹 Delete Ticket
 
-        // Node with two children
-        struct Ticket* temp = findMin(root->right);
-        root->id = temp->id;
-        strcpy(root->issue, temp->issue);
-        strcpy(root->status, temp->status);
-        root->right = deleteTicket(root->right, temp->id);
-    }
-    return root;
-}
+<img width="375" height="226" alt="Screenshot 2026-04-16 150308" src="https://github.com/user-attachments/assets/6f3f5e77-0959-4de3-9530-6608cc6c8a51" />
 
-// Main Function
-int main() {
-    struct Ticket* root = NULL;
-    int choice, id;
-    char issue[100], status[50];
+*    Exit
+*    
+---
 
-    while (1) {
-        printf("\n--- Customer Support System ---\n");
-        printf("1. Create Ticket\n");
-        printf("2. Display Tickets\n");
-        printf("3. Update Ticket\n");
-        printf("4. Delete Ticket\n");
-        printf("5. Search Ticket\n");
-        printf("6. Exit\n");
 
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
+<img width="365" height="209" alt="Screenshot 2026-04-16 150338" src="https://github.com/user-attachments/assets/91ccc109-6829-4b8e-9460-e57692132508" />
 
-        switch (choice) {
-            case 1:
-                printf("Enter Ticket ID: ");
-                scanf("%d", &id);
 
-                printf("Enter Issue: ");
-                scanf(" %[^\n]", issue);
 
-                printf("Enter Status: ");
-                scanf(" %[^\n]", status);
+💾 File Handling
 
-                root = insert(root, id, issue, status);
-                break;
-<img width="347" height="518" alt="Screenshot 2026-04-16 150117" src="https://github.com/user-attachments/assets/c5b81801-0791-4c4b-bb28-6916d6d1996c" />
+- Data stored in "tickets.txt"
+- Auto-save before exit
+- Auto-load on start
 
-            case 2:
-                printf("\n--- Ticket List ---\n");
-                display(root);
-                break;
-<img width="504" height="296" alt="Screenshot 2026-04-16 150144" src="https://github.com/user-attachments/assets/a0d56ce3-0ccb-4a2e-8c4d-8b6c39bda55b" />
+---
 
-            case 3:
-                printf("Enter Ticket ID to update: ");
-                scanf("%d", &id);
-                update(root, id);
-                break;
-<img width="343" height="278" alt="Screenshot 2026-04-16 150251" src="https://github.com/user-attachments/assets/65d70a64-d117-49f4-844a-334e2b18b6ba" />
+🚀 Future Enhancements
 
-            case 4:
-                printf("Enter Ticket ID to delete: ");
-                scanf("%d", &id);
-                root = deleteTicket(root, id);
-                printf("🗑 Ticket deleted!\n");
-                break;
-<img width="375" height="226" alt="Screenshot 2026-04-16 150308" src="https://github.com/user-attachments/assets/9710ce54-612f-4dd5-8e65-56645f1092fa" />
+- GUI interface
+- Database integration
+- Login system
+- Priority-based tickets
 
-            case 5:
-                printf("Enter Ticket ID to search: ");
-                scanf("%d", &id);
-                struct Ticket* t = search(root, id);
+---
 
-                if (t != NULL)
-                    printf("Found → ID: %d | Issue: %s | Status: %s\n",
-                           t->id, t->issue, t->status);
-                else
-                    printf("❌ Ticket not found!\n");
-                break;
-<img width="602" height="240" alt="Screenshot 2026-04-16 150326" src="https://github.com/user-attachments/assets/f8cc2511-5f3c-4823-a761-79fd1049058f" />
+📌 Conclusion
 
-            case 6:
-                printf("Exiting...\n");
-                exit(0);
-<img width="365" height="209" alt="Screenshot 2026-04-16 150338" src="https://github.com/user-attachments/assets/76fa9a5b-c9e6-4fac-a09e-390fb7d52cdc" />
+This project shows how Binary Search Tree (BST) can be used for efficient ticket management in real-world systems.
 
-            default:
-                printf("Invalid choice!\n");
-        }
-    }
-}
+---
+
+🙏 Thank You
